@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a0e0a">
+<title>Para a Andreia ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600;700&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #f3e7cd;
+    --paper-2: #ead9b8;
+    --paper-shadow: #c9b78b;
+    --ink: #2a1a10;
+    --ink-soft: #4a3526;
+    --wine: #732433;
+    --wine-deep: #4f1820;
+    --gold: #b88a3e;
+    --bg-1: #2b1812;
+    --bg-2: #110806;
+  }
+  html, body {
+    height: 100%;
+    overscroll-behavior: none;
+    background: #0c0604;
+  }
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--ink);
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  #root {
+    height: 100dvh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, #3a201a 0%, #1a0d08 60%, #0c0604 100%);
+  }
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 460px;
+    overflow: hidden;
+  }
+  /* tiny floating embers in background */
+  .embers { position: absolute; inset: 0; pointer-events: none; }
+  .ember {
+    position: absolute;
+    width: 3px; height: 3px; border-radius: 50%;
+    background: radial-gradient(circle, #d6a96a 0%, rgba(214,169,106,0) 70%);
+    opacity: 0.6;
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(20px); opacity: 0; }
+    20% { opacity: 0.7; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 22px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 500ms ease;
+  }
+  .screen.active { opacity: 1; pointer-events: auto; }
+
+  /* ENVELOPE */
+  .env-hint-top {
+    font-family: 'Caveat', cursive;
+    color: #d8c6a3;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 36px;
+  }
+  .envelope {
+    position: relative;
+    width: min(86vw, 320px);
+    aspect-ratio: 16 / 10;
+    transform: rotate(-3deg);
+    animation: floatEnv 4.5s ease-in-out infinite;
+    cursor: pointer;
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 8px 12px rgba(0,0,0,0.35));
+    transition: transform 500ms ease;
+  }
+  @keyframes floatEnv {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50%      { transform: rotate(-3deg) translateY(-10px); }
+  }
+  .envelope:active { transform: rotate(-3deg) scale(0.98); }
+  .env-body {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.08), transparent 60%),
+      linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .env-body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.012) 0 2px, transparent 2px 6px),
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.05), transparent 60%);
+    pointer-events: none;
+  }
+  .env-body::after {
+    /* bottom V seam */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0; top: 0;
+    background:
+      linear-gradient(to bottom right, transparent calc(50% - 0.5px), rgba(0,0,0,0.08) 50%, transparent calc(50% + 0.5px)) no-repeat,
+      linear-gradient(to bottom left,  transparent calc(50% - 0.5px), rgba(0,0,0,0.08) 50%, transparent calc(50% + 0.5px)) no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 100%, 100% 100%;
+    pointer-events: none;
+  }
+  .env-addressee {
+    position: absolute;
+    top: 30%;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    transform: rotate(-2deg);
+  }
+  .env-addressee small {
+    display: block;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    opacity: 0.7;
+  }
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 70%;
+    background: linear-gradient(180deg, var(--paper-2) 0%, var(--paper-shadow) 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 1100ms cubic-bezier(.6,.05,.3,1);
+    z-index: 3;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .envelope.open .env-flap {
+    transform: rotateX(180deg) translateY(-2px);
+  }
+  .wax-seal {
+    position: absolute;
+    left: 50%;
+    top: 62%;
+    transform: translate(-50%, -50%);
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, #a83545 0%, var(--wine) 45%, var(--wine-deep) 100%);
+    box-shadow:
+      inset 0 -6px 12px rgba(0,0,0,0.4),
+      inset 0 4px 8px rgba(255,255,255,0.15),
+      0 4px 8px rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 36px;
+    color: rgba(255,220,180,0.85);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+    z-index: 4;
+    transition: transform 600ms ease, opacity 400ms ease;
+  }
+  .wax-seal::before {
+    /* scalloped edge */
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 64%, var(--wine-deep) 64.5%, var(--wine-deep) 67%, transparent 67.5%);
+    opacity: 0.6;
+  }
+  .envelope.open .wax-seal {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.55;
+  }
+  .tap-hint {
+    margin-top: 30px;
+    font-family: 'Caveat', cursive;
+    color: #d8c6a3;
+    font-size: 20px;
+    opacity: 0;
+    animation: pulseHint 2.4s ease-in-out infinite;
+    animation-delay: 0.6s;
+  }
+  @keyframes pulseHint {
+    0%, 100% { opacity: 0.35; transform: translateY(0); }
+    50%      { opacity: 0.85; transform: translateY(-2px); }
+  }
+  .tap-hint .arrow { display: inline-block; margin-right: 6px; }
+
+  /* LETTER */
+  .letter-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 14px 14px;
+  }
+  .paper {
+    width: 100%;
+    max-width: 380px;
+    flex: 1;
+    min-height: 0;
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+    border-radius: 4px;
+    box-shadow:
+      0 30px 50px rgba(0,0,0,0.55),
+      0 8px 14px rgba(0,0,0,0.35),
+      inset 0 0 0 1px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .paper::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(0,0,0,0.04), transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(0,0,0,0.06), transparent 50%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0 1px, transparent 1px 4px);
+    pointer-events: none;
+  }
+  .paper::after {
+    /* subtle edge fade */
+    content: '';
+    position: absolute; inset: 0;
+    box-shadow: inset 0 0 40px rgba(80,40,10,0.08);
+    pointer-events: none;
+  }
+  .letter-body {
+    overflow-y: auto;
+    padding: 32px 26px 24px;
+    flex: 1;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(80,40,10,0.2) transparent;
+  }
+  .letter-body::-webkit-scrollbar { width: 4px; }
+  .letter-body::-webkit-scrollbar-thumb { background: rgba(80,40,10,0.2); border-radius: 4px; }
+
+  .salutation {
+    font-family: 'Caveat', cursive;
+    font-size: 38px;
+    color: var(--wine-deep);
+    margin-bottom: 18px;
+    line-height: 1;
+  }
+  .letter-body p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 14px;
+    text-wrap: pretty;
+  }
+  .letter-body p em { color: var(--wine-deep); font-style: italic; }
+  .letter-body .lead { font-size: 19px; font-style: italic; color: var(--ink-soft); }
+  .letter-body .ps {
+    margin-top: 18px;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--wine-deep);
+    line-height: 1.2;
+  }
+  .letter-cta {
+    padding: 14px 20px 22px;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(243,231,205,0.95) 30%, var(--paper-2) 100%);
+  }
+  .btn {
+    appearance: none;
+    border: none;
+    background: var(--wine);
+    color: #fbeed5;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    box-shadow:
+      0 8px 18px rgba(80,20,30,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  }
+  .btn:active { transform: translateY(1px) scale(0.98); }
+  .btn:hover { background: #843545; }
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    box-shadow: none;
+    padding: 10px 18px;
+  }
+  .btn.gold {
+    background: linear-gradient(180deg, #d4a056 0%, #b88a3e 100%);
+    color: #2a1a10;
+    box-shadow: 0 8px 18px rgba(150,100,30,0.45), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  /* PROMISES */
+  .promises-screen { gap: 0; }
+  .promises-header {
+    font-family: 'Caveat', cursive;
+    color: #e6d4ad;
+    font-size: 26px;
+    margin-bottom: 18px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .promises-header small {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #b9a47a;
+    margin-top: 4px;
+    letter-spacing: 0.4px;
+  }
+  .card-deck {
+    position: relative;
+    width: min(85vw, 320px);
+    aspect-ratio: 3 / 4;
+    margin-bottom: 22px;
+  }
+  .promise-card {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 100%);
+    border-radius: 10px;
+    box-shadow:
+      0 22px 40px rgba(0,0,0,0.5),
+      0 6px 14px rgba(0,0,0,0.3),
+      inset 0 0 0 1px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px;
+    text-align: center;
+    transition:
+      transform 500ms cubic-bezier(.6,.05,.3,1),
+      opacity 400ms ease;
+    transform-origin: center;
+  }
+  .promise-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(0,0,0,0.04), transparent 50%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.01) 0 1px, transparent 1px 4px);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .promise-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--wine);
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+    opacity: 0.7;
+  }
+  .promise-icon {
+    width: 56px; height: 56px;
+    margin-bottom: 22px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--wine-deep);
+  }
+  .promise-icon svg { width: 100%; height: 100%; }
+  .promise-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--ink);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  .promise-flourish {
+    margin-top: 24px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: var(--wine);
+    opacity: 0.7;
+  }
+  .deck-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(232, 218, 184, 0.25);
+    transition: all 300ms ease;
+  }
+  .dot.active {
+    background: #e6d4ad;
+    width: 22px;
+    border-radius: 4px;
+  }
+  .promises-screen .btn-row {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .promises-screen .btn-row .btn { padding: 11px 22px; font-size: 17px; }
+
+  /* QUESTION */
+  .question-screen { padding: 30px 18px; }
+  .q-eyebrow {
+    font-family: 'Caveat', cursive;
+    color: #d8c6a3;
+    font-size: 22px;
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
+  .q-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: #f3e7cd;
+    font-size: clamp(36px, 9vw, 46px);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    text-wrap: balance;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+  .q-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #c6b189;
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 280px;
+    line-height: 1.4;
+  }
+  .answer-area {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-sim {
+    background: linear-gradient(180deg, #c93f52 0%, #8a2436 100%);
+    color: #fbeed5;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 30px;
+    padding: 18px 56px;
+    border-radius: 999px;
+    box-shadow:
+      0 14px 30px rgba(120,30,40,0.55),
+      0 4px 10px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    cursor: pointer;
+    letter-spacing: 1px;
+    animation: simPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes simPulse {
+    0%, 100% { box-shadow: 0 14px 30px rgba(120,30,40,0.55), 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 0 0 rgba(201,63,82,0.4); }
+    50%      { box-shadow: 0 14px 30px rgba(120,30,40,0.55), 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 0 14px rgba(201,63,82,0); }
+  }
+  .btn-nao {
+    position: absolute;
+    background: transparent;
+    color: #8a7a5e;
+    border: 1px solid rgba(138,122,94,0.45);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 320ms cubic-bezier(.5,.1,.3,1.2), opacity 300ms ease, background 200ms ease;
+    z-index: 5;
+  }
+  .btn-nao.gone { opacity: 0; pointer-events: none; transform: scale(0.4); }
+  .dodge-msg {
+    position: absolute;
+    bottom: -36px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    color: #c6b189;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .dodge-msg.show { opacity: 0.85; }
+
+  /* YES SCREEN */
+  .yes-screen {
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(115,36,51,0.5) 0%, transparent 60%);
+  }
+  .yes-eyebrow {
+    font-family: 'Caveat', cursive;
+    color: #e6d4ad;
+    font-size: 22px;
+    margin-bottom: 8px;
+    opacity: 0.85;
+    animation: fadeUp 800ms ease both;
+  }
+  .yes-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: #fbeed5;
+    font-size: clamp(48px, 13vw, 64px);
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-wrap: balance;
+    text-shadow: 0 4px 30px rgba(180,40,50,0.4);
+    animation: fadeUp 900ms 100ms ease both;
+  }
+  .key-art {
+    width: 120px;
+    margin: 18px 0 24px;
+    color: var(--gold);
+    animation: keySwing 4s ease-in-out infinite, fadeUp 1000ms 300ms ease both;
+    transform-origin: top center;
+  }
+  @keyframes keySwing {
+    0%, 100% { transform: rotate(-6deg); }
+    50%      { transform: rotate(6deg); }
+  }
+  .yes-msg {
+    max-width: 320px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: #f0dfb8;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    text-wrap: balance;
+    animation: fadeUp 1000ms 400ms ease both;
+  }
+  .yes-msg em { color: #f6c97a; font-style: italic; }
+  .signature {
+    font-family: 'Caveat', cursive;
+    color: #f6c97a;
+    font-size: 30px;
+    margin-top: 6px;
+    animation: fadeUp 1000ms 600ms ease both;
+  }
+  .signature small {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #b9a47a;
+    margin-top: -4px;
+    letter-spacing: 1px;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .confetti-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .confetti {
+    position: absolute;
+    top: -30px;
+    will-change: transform;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+    8%   { opacity: 1; }
+    100% { transform: translate3d(var(--dx, 0px), 110vh, 0) rotate(var(--rot, 360deg)); opacity: 0.9; }
+  }
+
+  /* shared reset button on yes screen */
+  .replay {
+    margin-top: 26px;
+    font-family: 'Caveat', cursive;
+    color: #b9a47a;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 300ms ease;
+  }
+  .replay:hover { opacity: 1; }
+
+  /* small device tweaks */
+  @media (max-height: 680px) {
+    .salutation { font-size: 32px; margin-bottom: 12px; }
+    .letter-body p { font-size: 16.5px; }
+    .promise-text { font-size: 22px; }
+    .q-sub { margin-bottom: 32px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useMemo } = React;
+
+/* ---------- BACKGROUND EMBERS ---------- */
+const Embers = () => {
+  const embers = useMemo(() => Array.from({ length: 14 }, () => ({
+    left: Math.random() * 100,
+    delay: Math.random() * 8,
+    duration: 8 + Math.random() * 10,
+    size: 2 + Math.random() * 3,
+  })), []);
+  return (
+    <div className="embers" aria-hidden="true">
+      {embers.map((e, i) => (
+        <span key={i} className="ember" style={{
+          left: `${e.left}%`,
+          bottom: `-10px`,
+          width: `${e.size}px`,
+          height: `${e.size}px`,
+          animationDelay: `${e.delay}s`,
+          animationDuration: `${e.duration}s`,
+        }} />
+      ))}
+    </div>
+  );
+};
+
+/* ---------- ENVELOPE ---------- */
+const EnvelopeScreen = ({ active, onOpen }) => {
+  const [opening, setOpening] = useState(false);
+  const handleOpen = () => {
+    if (opening) return;
+    setOpening(true);
+    setTimeout(onOpen, 950);
+  };
+  return (
+    <div className={`screen envelope-screen ${active ? 'active' : ''}`}>
+      <div className="env-hint-top">uma carta para ti</div>
+      <div className={`envelope ${opening ? 'open' : ''}`} onClick={handleOpen} role="button" aria-label="Abrir carta">
+        <div className="env-body">
+          <div className="env-addressee">
+            Andreia
+            <small>— a única —</small>
+          </div>
+        </div>
+        <div className="env-flap"></div>
+        <div className="wax-seal">A</div>
+      </div>
+      <div className="tap-hint" style={{ visibility: opening ? 'hidden' : 'visible' }}>
+        <span className="arrow">↑</span> toca para abrir
+      </div>
+    </div>
+  );
+};
+
+/* ---------- LETTER ---------- */
+const LetterScreen = ({ active, onNext }) => {
+  return (
+    <div className={`screen ${active ? 'active' : ''}`} style={{ padding: 0 }}>
+      <div className="letter-wrap">
+        <div className="paper">
+          <div className="letter-body">
+            <div className="salutation">Andreia,</div>
+            <p className="lead">há pouco tempo, a minha casa tornou-se só minha.</p>
+            <p>Cheio de planos e sonhos. O silêncio é grande. E há sempre uma chávena a mais na mesa.</p>
+            <p>Demorei a perceber porquê.</p>
+            <p>Esta casa tem tudo o que precisa, um sofá (ou cama que queres que eu tire da sala) onde cabem dois. Só lhe falta uma coisa: <em>tu</em>.</p>
+            <p>Falta o som da tua voz quando acordas. Os teus pés gelados a procurar os meus. O cheiro do teu óleo corporal no quarto.</p>
+            <p>Estou nesta fase em que se constrói uma vida — uma rotina, um caminho, um projecto — e percebi que <em>não quero construir nada disto sem ti</em>. Não faz sentido nenhum.</p>
+            <p>Quero acordar contigo. Jantar contigo. Discutir contigo onde fica melhor o sofá. Chatear-te com música alta. Fazer-te um chá quando o dia foi mau. Ouvir-te dizer que pus sal a mais.</p>
+            <p>Quero que esta casa seja a <em>nossa</em> casa.</p>
+            <div className="ps">
+              p.s. tenho uma pergunta para te fazer.<br/>
+              vira a página. →
+            </div>
+          </div>
+          <div className="letter-cta">
+            <button className="btn" onClick={onNext}>Continuar a ler →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- PROMISES ---------- */
+const PromiseIcon = ({ kind }) => {
+  // very simple line icons — circles, lines, rectangles only
+  switch (kind) {
+    case 'coffee':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="14" y="22" width="28" height="24" rx="3"/>
+          <path d="M42 28 h6 a4 4 0 0 1 0 8 h-6"/>
+          <path d="M22 14 q-2 4 0 8" />
+          <path d="M30 14 q-2 4 0 8" />
+          <path d="M38 14 q-2 4 0 8" />
+        </svg>
+      );
+    case 'sofa':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="8" y="28" width="48" height="20" rx="4"/>
+          <rect x="14" y="22" width="36" height="14" rx="3"/>
+          <line x1="14" y1="48" x2="14" y2="54"/>
+          <line x1="50" y1="48" x2="50" y2="54"/>
+        </svg>
+      );
+    case 'brush':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="22" y="10" width="8" height="14" rx="2"/>
+          <rect x="22" y="24" width="8" height="30" rx="2"/>
+          <rect x="34" y="14" width="8" height="14" rx="2"/>
+          <rect x="34" y="28" width="8" height="26" rx="2"/>
+        </svg>
+      );
+    case 'film':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="10" y="16" width="44" height="32" rx="3"/>
+          <circle cx="18" cy="22" r="1.5" fill="currentColor"/>
+          <circle cx="18" cy="42" r="1.5" fill="currentColor"/>
+          <circle cx="46" cy="22" r="1.5" fill="currentColor"/>
+          <circle cx="46" cy="42" r="1.5" fill="currentColor"/>
+          <line x1="14" y1="32" x2="50" y2="32"/>
+        </svg>
+      );
+    case 'door':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <rect x="18" y="10" width="28" height="44" rx="2"/>
+          <circle cx="39" cy="34" r="1.5" fill="currentColor"/>
+        </svg>
+      );
+    case 'key':
+      return (
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <circle cx="22" cy="32" r="10"/>
+          <line x1="32" y1="32" x2="54" y2="32"/>
+          <line x1="46" y1="32" x2="46" y2="40"/>
+          <line x1="52" y1="32" x2="52" y2="38"/>
+        </svg>
+      );
+    default: return null;
+  }
+};
+
+const PROMISES = [
+  { icon: 'coffee', text: 'Chá antes de tudo o resto.' },
+  { icon: 'sofa',   text: 'Sofá, manta, tu de um lado — eu do outro.' },
+  { icon: 'brush',  text: 'A tua escova ao lado da minha.' },
+  { icon: 'film',   text: 'Tu escolhes o filme. Eu finjo que gosto.' },
+  { icon: 'door',   text: 'Sair juntos. Voltar juntos.' },
+  { icon: 'key',    text: 'Uma chave que é tua.' },
+];
+
+const PromisesScreen = ({ active, onNext, onBack }) => {
+  const [idx, setIdx] = useState(0);
+  const isLast = idx === PROMISES.length - 1;
+  const promise = PROMISES[idx];
+
+  const next = () => {
+    if (isLast) onNext();
+    else setIdx(i => i + 1);
+  };
+  const back = () => {
+    if (idx === 0) onBack();
+    else setIdx(i => i - 1);
+  };
+
+  return (
+    <div className={`screen promises-screen ${active ? 'active' : ''}`}>
+      <div className="promises-header">
+        pequenas coisas
+        <small>— do que será dia a dia —</small>
+      </div>
+      <div className="card-deck" onClick={next}>
+        {/* render three layers for depth */}
+        {[2,1,0].map(offset => {
+          const i = idx + offset;
+          if (i >= PROMISES.length) return null;
+          const p = PROMISES[i];
+          return (
+            <div
+              key={i}
+              className="promise-card"
+              style={{
+                transform: `translateY(${offset * 6}px) scale(${1 - offset * 0.03})`,
+                opacity: offset === 0 ? 1 : 0.6 - offset * 0.15,
+                zIndex: 10 - offset,
+              }}
+            >
+              <div className="promise-num">{String(i + 1).padStart(2, '0')} / {String(PROMISES.length).padStart(2, '0')}</div>
+              <div className="promise-icon"><PromiseIcon kind={p.icon} /></div>
+              <div className="promise-text">{p.text}</div>
+              {i === PROMISES.length - 1 && <div className="promise-flourish">— e tudo o resto.</div>}
+            </div>
+          );
+        })}
+      </div>
+      <div className="deck-controls" aria-hidden="true">
+        {PROMISES.map((_, i) => (
+          <div key={i} className={`dot ${i === idx ? 'active' : ''}`} />
+        ))}
+      </div>
+      <div className="btn-row">
+        <button className="btn ghost" onClick={back}>← anterior</button>
+        <button className="btn" onClick={next}>
+          {isLast ? 'a pergunta →' : 'próxima →'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- QUESTION ---------- */
+const QuestionScreen = ({ active, onYes, onBack }) => {
+  const areaRef = useRef(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [dodges, setDodges] = useState(0);
+  const gone = dodges >= 6;
+
+  const dodge = (e) => {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    const area = areaRef.current;
+    if (!area) return;
+    const rect = area.getBoundingClientRect();
+    const maxX = (rect.width  / 2) - 60;
+    const maxY = (rect.height / 2) - 40;
+    const x = (Math.random() * 2 - 1) * maxX;
+    const y = (Math.random() * 2 - 1) * maxY;
+    setPos({ x, y });
+    setDodges(d => d + 1);
+  };
+
+  return (
+    <div className={`screen question-screen ${active ? 'active' : ''}`}>
+      <div className="q-eyebrow">esta é a pergunta —</div>
+      <div className="q-title">Vens viver<br/>comigo?</div>
+      <div className="q-sub">não te apresses. mas, se estás a sorrir, já temos a resposta.</div>
+
+      <div className="answer-area" ref={areaRef}>
+        <button className="btn-sim" onClick={onYes}>Sim ♡</button>
+        <button
+          className={`btn-nao ${gone ? 'gone' : ''}`}
+          style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
+          onMouseEnter={dodge}
+          onTouchStart={dodge}
+          onClick={dodge}
+        >
+          Não
+        </button>
+        <div className={`dodge-msg ${dodges > 0 && !gone ? 'show' : ''}`}>
+          {dodges < 3 ? 'hmm... tenta outra vez 🙂' :
+           dodges < 6 ? 'esse botão parece estar a fugir...' :
+           ''}
+        </div>
+      </div>
+
+      <button className="btn ghost" style={{ marginTop: 60 }} onClick={onBack}>← voltar</button>
+    </div>
+  );
+};
+
+/* ---------- YES / FINAL ---------- */
+const ConfettiLayer = () => {
+  const pieces = useMemo(() => Array.from({ length: 36 }, (_, i) => ({
+    left: Math.random() * 100,
+    dx: (Math.random() - 0.5) * 120,
+    rot: 200 + Math.random() * 400,
+    delay: Math.random() * 2.5,
+    duration: 4 + Math.random() * 3.5,
+    color: ['#c93f52','#e8a553','#f6c97a','#fbeed5','#8a2436'][i % 5],
+    size: 8 + Math.random() * 8,
+    kind: i % 3,
+  })), []);
+  return (
+    <div className="confetti-layer" aria-hidden="true">
+      {pieces.map((p, i) => (
+        <span key={i} className="confetti" style={{
+          left: `${p.left}%`,
+          '--dx': `${p.dx}px`,
+          '--rot': `${p.rot}deg`,
+          animationDelay: `${p.delay}s`,
+          animationDuration: `${p.duration}s`,
+        }}>
+          {p.kind === 0 ? (
+            <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill={p.color}>
+              <path d="M12 21s-7-4.5-9.5-9C0 7 3 3 7 4c2 .5 3.5 2 5 4 1.5-2 3-3.5 5-4 4-1 7 3 4.5 8C19 16.5 12 21 12 21z"/>
+            </svg>
+          ) : p.kind === 1 ? (
+            <span style={{
+              display: 'inline-block',
+              width: p.size, height: p.size * 0.4,
+              background: p.color,
+              borderRadius: 2,
+            }}/>
+          ) : (
+            <span style={{
+              display: 'inline-block',
+              width: p.size * 0.7, height: p.size * 0.7,
+              background: p.color,
+              borderRadius: '50%',
+            }}/>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+const KeyArt = () => (
+  <svg className="key-art" viewBox="0 0 200 80" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="32" cy="40" r="22" />
+    <circle cx="32" cy="40" r="8" fill="currentColor" stroke="none" opacity="0.4"/>
+    <line x1="54" y1="40" x2="180" y2="40" />
+    <line x1="150" y1="40" x2="150" y2="56" />
+    <line x1="165" y1="40" x2="165" y2="52" />
+    <line x1="180" y1="40" x2="180" y2="58" />
+  </svg>
+);
+
+const YesScreen = ({ active, onReset }) => {
+  return (
+    <div className={`screen yes-screen ${active ? 'active' : ''}`}>
+      {active && <ConfettiLayer />}
+      <div className="yes-eyebrow">já sabia.</div>
+      <div className="yes-title">Vamos a isto.</div>
+      <KeyArt />
+      <div className="yes-msg">
+        Toma — uma chave que é <em>tua</em>.<br/>
+        Mal posso esperar para começar este capítulo contigo. A casa fica pronta quando entrares.
+      </div>
+      <div className="signature">
+        — Eu
+        <small>com tudo o que sou</small>
+      </div>
+      <button className="replay" onClick={onReset}>ler outra vez ↺</button>
+    </div>
+  );
+};
+
+/* ---------- APP ---------- */
+const SCREENS = ['envelope', 'letter', 'promises', 'question', 'yes'];
+
+const App = () => {
+  const [screen, setScreen] = useState('envelope');
+
+  // Allow URL hash to jump (handy for sharing)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (SCREENS.includes(hash)) setScreen(hash);
+  }, []);
+  useEffect(() => {
+    window.location.hash = screen;
+  }, [screen]);
+
+  return (
+    <div className="stage">
+      <Embers />
+      <EnvelopeScreen active={screen === 'envelope'} onOpen={() => setScreen('letter')} />
+      <LetterScreen   active={screen === 'letter'}   onNext={() => setScreen('promises')} />
+      <PromisesScreen
+        active={screen === 'promises'}
+        onNext={() => setScreen('question')}
+        onBack={() => setScreen('letter')}
+      />
+      <QuestionScreen
+        active={screen === 'question'}
+        onYes={() => setScreen('yes')}
+        onBack={() => setScreen('promises')}
+      />
+      <YesScreen active={screen === 'yes'} onReset={() => setScreen('envelope')} />
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
